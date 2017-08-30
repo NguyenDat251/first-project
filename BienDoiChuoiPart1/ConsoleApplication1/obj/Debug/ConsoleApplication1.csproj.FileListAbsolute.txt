@@ -4,3 +4,9 @@ C:\Users\Duy Nguyen\Desktop\Team Coding Project\first-project\BienDoiChuoiPart1\
 C:\Users\Duy Nguyen\Desktop\Team Coding Project\first-project\BienDoiChuoiPart1\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
 C:\Users\Duy Nguyen\Desktop\Team Coding Project\first-project\BienDoiChuoiPart1\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
 C:\Users\Duy Nguyen\Desktop\Team Coding Project\first-project\BienDoiChuoiPart1\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+F:\GitHub\first-project\BienDoiChuoiPart1\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+F:\GitHub\first-project\BienDoiChuoiPart1\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+F:\GitHub\first-project\BienDoiChuoiPart1\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+F:\GitHub\first-project\BienDoiChuoiPart1\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+F:\GitHub\first-project\BienDoiChuoiPart1\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+F:\GitHub\first-project\BienDoiChuoiPart1\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
