@@ -43,6 +43,7 @@ namespace ConsoleApplication1
             // Console.WriteLine(InputToCut);
             Console.WriteLine("Dzot xau trai vc");
             Console.WriteLine("test push lan 2");
+            Console.WriteLine("test push lan 3");
             Console.ReadKey();
         }
     }
