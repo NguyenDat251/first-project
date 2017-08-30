@@ -40,9 +40,11 @@ namespace ConsoleApplication1
 
             
             //đây là phần t thay đổi coi m có thấy không 
+
             Console.WriteLine(InputToCut);
             //Console.WriteLine("Dzot xau trai vc");
             //Console.WriteLine("test push lan 2");
+
             Console.ReadKey();
         }
     }
