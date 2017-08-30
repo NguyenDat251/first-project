@@ -38,8 +38,10 @@ namespace ConsoleApplication1
                 }
             }
 
-
-            Console.WriteLine(InputToCut);
+            
+            //đây là phần t thay đổi coi m có thấy không 
+            // Console.WriteLine(InputToCut);
+            Console.WriteLine("Dzot xau trai vc");
 
             Console.ReadKey();
         }
