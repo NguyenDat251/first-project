@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+
 namespace XulyFile
 {
     public class Nhapxuat
@@ -15,30 +16,32 @@ namespace XulyFile
         }
     }
 }
-namespace ConsoleApplication1
+
+namespace XyLyChuoi
 {
-    class Program
+    public class BienDoiChuoiGen
     {
-        static void Main(string[] args)
+        //list chứa vị trí các dấu gạch chân, mặc định dấu đầu tiên ở vị trí -1
+        static List<int> theIndexOfTheSpace = new List<int>();
+
+        //Trả về chuỗi gen được biến đổi theo gem mã hóa
+        static public string ChuyenHoaGen(string Gen)
         {
-            string Input = XulyFile.Nhapxuat.Nhap("C:\\Users\\Asus\\Desktop\\Project\\first-project\\BienDoiChuoiPart1\\test.txt");
             int IndexOfTheSpace = -1;
-            Console.WriteLine(Input);
-            //list chứa vị trí các dấu gạch chân, mặc định dấu đầu tiên ở vị trí -1
-            List<int> theIndexOfTheSpace = new List<int>();
+            
             //Tìm vị trí các dấu gạch chân xong bỏ vô list
             do
             {
                 theIndexOfTheSpace.Add(IndexOfTheSpace);
-                IndexOfTheSpace = Input.IndexOf('_', IndexOfTheSpace + 1);
+                IndexOfTheSpace = Gen.IndexOf('_', IndexOfTheSpace + 1);
             } while (IndexOfTheSpace != -1);
 
-            StringBuilder InputToCut = new StringBuilder(Input);
+            StringBuilder InputToCut = new StringBuilder(Gen);
 
             int count = 0;
             for (; count < theIndexOfTheSpace.Count; count++)
             {
-                for (int i = 2; i < Input.Length; i++)
+                for (int i = 2; i < Gen.Length; i++)
                 {
                     if (theIndexOfTheSpace.Contains(i - 1) || theIndexOfTheSpace.Contains(i - 2))
                         continue;
@@ -48,12 +51,42 @@ namespace ConsoleApplication1
                 }
             }
 
-            
-            //đây là phần t thay đổi coi m có thấy không 
+            return InputToCut.ToString();
+        }
 
-            Console.WriteLine(InputToCut);
-            //Console.WriteLine("Dzot xau trai vc");
-            //Console.WriteLine("test push lan 2");
+        //Trả về list các đoạn gen đã cắt và lượt phần đầu
+        static public List<string> CatGen(string Gen)
+        {
+            //for (int i = 0; i < theIndexOfTheSpace.Count; i++)
+            //    Gen.Remove(theIndexOfTheSpace[i] + 1, 2);
+
+            string[] CutDone = Gen.Split('_');
+
+            for (int i = 0; i < CutDone.Length ; i++)
+            {
+                CutDone[i] = CutDone[i].Remove(0, 2);
+            }
+
+            return CutDone.OfType<string>().ToList();
+        }
+    }
+}
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string Input = XulyFile.Nhapxuat.Nhap("F:\\GitHub\\first-project\\BienDoiChuoiPart1\\test.txt");
+
+            List<string> CutDone = XyLyChuoi.BienDoiChuoiGen.CatGen(XyLyChuoi.BienDoiChuoiGen.ChuyenHoaGen(Input));
+            
+            //Kiểm tra chuỗi đã cắt
+            for (int i = 0; i < CutDone.Count; i++ )
+            {
+                Console.WriteLine(CutDone[i]);
+            }
 
             Console.ReadKey();
         }
