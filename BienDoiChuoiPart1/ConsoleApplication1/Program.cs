@@ -69,6 +69,34 @@ namespace XyLyChuoi
 
             return CutDone.OfType<string>().ToList();
         }
+
+        //Tra ve chuoi la ten cua pokemon, nếu không có tên hay nhiều tên thì trả về chuỗi ""
+        static public string KiemTraGen(List<string> Gen, List<string> TenPokemon)
+        {
+            string result = "";
+
+            int i = 0;
+            for(; i < Gen.Count ; i++)
+            {
+                if (TenPokemon.Contains(Gen[i]))
+                {
+                    result = Gen[i];
+                }
+            }
+
+            for (; i < Gen.Count; i++)
+            {
+                if (TenPokemon.Contains(Gen[i]))
+                {
+                    if (result == Gen[i])
+                        continue;
+                    else
+                        return "";
+                }
+            }
+
+            return result;
+        }
     }
 }
 
