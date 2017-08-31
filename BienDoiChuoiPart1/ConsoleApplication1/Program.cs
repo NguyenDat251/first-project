@@ -3,17 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
+namespace XulyFile
+{
+    public class Nhapxuat
+    {
+        static public string Nhap(string fPath)
+        {
+            string[] input = File.ReadAllLines(fPath);
+            return input[0];
+        }
+    }
+}
 namespace ConsoleApplication1
 {
     class Program
     {
         static void Main(string[] args)
         {
-            string Input = Console.ReadLine();
-
+            string Input = XulyFile.Nhapxuat.Nhap("C:\\Users\\Asus\\Desktop\\Project\\first-project\\BienDoiChuoiPart1\\test.txt");
             int IndexOfTheSpace = -1;
-
+            Console.WriteLine(Input);
             //list chứa vị trí các dấu gạch chân, mặc định dấu đầu tiên ở vị trí -1
             List<int> theIndexOfTheSpace = new List<int>();
             //Tìm vị trí các dấu gạch chân xong bỏ vô list
