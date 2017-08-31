@@ -21,7 +21,7 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            string Input = XulyFile.Nhapxuat.Nhap("C:\\Users\\Asus\\Desktop\\Project\\first-project\\BienDoiChuoiPart1\\test.txt");
+            string Input = XulyFile.Nhapxuat.Nhap("test.txt");
             int IndexOfTheSpace = -1;
             Console.WriteLine(Input);
             //list chứa vị trí các dấu gạch chân, mặc định dấu đầu tiên ở vị trí -1
