@@ -45,11 +45,10 @@ namespace XulyFile
     }
 }
 
-namespace XyLyChuoi
+namespace XuLyChuoi
 {
     public class BienDoiChuoiGen
     {
-        public List<string> TenPokemom = new List<string>{"Articuno","Cobalion","Dialga","Entei","Giratina","Groudon","HoOh","Keldeo","Kyogre","Landorus","Lugia","Moltres","Palkia","Raikou","Rayquaza","Suicune","Terrakion","Thundurus","Tornadus","Virizion","Xerneas","Yveltal","Zapdos" };
         //list chứa vị trí các dấu gạch chân, mặc định dấu đầu tiên ở vị trí -1
         static List<int> theIndexOfTheSpace = new List<int>();
 
@@ -100,31 +99,50 @@ namespace XyLyChuoi
         }
 
         //Tra ve chuoi la ten cua pokemon, nếu không có tên hay nhiều tên thì trả về chuỗi ""
-        static public string KiemTraGen(List<string> Gen, List<string> TenPokemon)
+        static public string findPokemon(List<string> Gen, List<string> TenPokemon)
         {
-            string result = "";
+            string Pokemon = "";
 
             int i = 0;
+            //tìm ra con pokemon đầu tiên
             for(; i < Gen.Count ; i++)
             {
                 if (TenPokemon.Contains(Gen[i]))
                 {
-                    result = Gen[i];
+                    Pokemon = Gen[i];
+                    break;
                 }
             }
 
-            for (; i < Gen.Count; i++)
+            //kiểm tra xem có pokemon nào khác con Pokemon đã tìm thấy ở trên không
+            for (i++; i < Gen.Count; i++)
             {
                 if (TenPokemon.Contains(Gen[i]))
                 {
-                    if (result == Gen[i])
+                    if (Pokemon == Gen[i])
                         continue;
                     else
                         return "";
                 }
             }
 
-            return result;
+            return Pokemon;
+        }
+
+        static public string createSkill(List<string> Gen, string Pokemon)
+        {
+            string skill = Pokemon;
+            for (int i = 0; i < Gen.Count; ++i)
+                if (Gen[i] == Pokemon)  Gen.Remove(Gen[i--]);
+
+            IEnumerable<string> SortedGen = from gen in Gen
+                                        orderby gen.Length, gen.Substring(0, 1), gen.Substring(1, 1)
+                                        select gen;
+
+            foreach (string gen in SortedGen)  
+                skill += gen;
+
+                return skill;
         }
     }
 }
@@ -135,15 +153,21 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
+            List<string> TenPokemon = new List<string>{"Articuno","Cobalion","Dialga","Entei","Giratina","Groudon","HoOh","Keldeo","Kyogre","Landorus","Lugia","Moltres","Palkia","Raikou","Rayquaza","Suicune","Terrakion","Thundurus","Tornadus","Virizion","Xerneas","Yveltal","Zapdos" };
             string Input = XulyFile.Nhapxuat.Nhap("test.txt");
 
-            List<string> CutDone = XyLyChuoi.BienDoiChuoiGen.CatGen(XyLyChuoi.BienDoiChuoiGen.ChuyenHoaGen(Input));
-            
+            //string GenMaHoa = XuLyChuoi.BienDoiChuoiGen.ChuyenHoaGen(Input);
+
+            List<string> CutDone = XuLyChuoi.BienDoiChuoiGen.CatGen(XuLyChuoi.BienDoiChuoiGen.ChuyenHoaGen(Input));
+            string poke = XuLyChuoi.BienDoiChuoiGen.findPokemon(CutDone, TenPokemon);
+            string Skill = XuLyChuoi.BienDoiChuoiGen.createSkill(CutDone, poke);
+
             //Kiểm tra chuỗi đã cắt
             for (int i = 0; i < CutDone.Count; i++ )
             {
                 Console.WriteLine(CutDone[i]);
             }
+            Console.WriteLine(Skill);
 
             Console.ReadKey();
         }
