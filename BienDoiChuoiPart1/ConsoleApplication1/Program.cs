@@ -7,12 +7,40 @@ using System.IO;
 
 namespace XulyFile
 {
+    
     public class Nhapxuat
     {
+        static bool checkip(string ip)
+        {
+            // Chuỗi có khoảng trắng
+            if (ip.Contains(' ') == true) return false;
+            //Chiều dài chuỗi không hợp lệ
+            if (ip.Length == 0 || ip.Length > 1000) return false;
+            //Chuỗi có chứa số
+            for (var i = '0'; i <= '9'; i++)
+            {
+                if (ip.Contains(i) == true) return false;
+
+            }
+            //Chuỗi có đoạn gen trống hoặc 2 kí tự đầu không là kí tự thường hoặc chiều dài 1 đoạn gen <3
+            int index = ip.IndexOf('_');
+            while (index != -1)
+            {
+                if (ip[index - 1] == '_' || ip[index + 1] == '_') return false;
+                if (ip[index + 1] < 'a' || ip[index + 1] > 'z' || ip[index + 2] < 'a' || ip[index + 2] > 'z') return false;
+                int tmp = index;
+                index = ip.IndexOf('_', index + 1);
+                if (index - tmp <= 3 && index!=-1) return false;
+            }
+            return true;
+        }
         static public string Nhap(string fPath)
         {
             string[] input = File.ReadAllLines(fPath);
-            return input[0];
+            if (Nhapxuat.checkip(input[0]) == true)
+                return input[0];
+            else
+                return "NULL";
         }
     }
 }
@@ -21,6 +49,7 @@ namespace XyLyChuoi
 {
     public class BienDoiChuoiGen
     {
+        public List<string> TenPokemom = new List<string>{"Articuno","Cobalion","Dialga","Entei","Giratina","Groudon","HoOh","Keldeo","Kyogre","Landorus","Lugia","Moltres","Palkia","Raikou","Rayquaza","Suicune","Terrakion","Thundurus","Tornadus","Virizion","Xerneas","Yveltal","Zapdos" };
         //list chứa vị trí các dấu gạch chân, mặc định dấu đầu tiên ở vị trí -1
         static List<int> theIndexOfTheSpace = new List<int>();
 
@@ -106,7 +135,7 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            string Input = XulyFile.Nhapxuat.Nhap("F:\\GitHub\\first-project\\BienDoiChuoiPart1\\test.txt");
+            string Input = XulyFile.Nhapxuat.Nhap("test.txt");
 
             List<string> CutDone = XyLyChuoi.BienDoiChuoiGen.CatGen(XyLyChuoi.BienDoiChuoiGen.ChuyenHoaGen(Input));
             
