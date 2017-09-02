@@ -42,6 +42,11 @@ namespace XulyFile
             else
                 return "NULL";
         }
+
+        static public void Xuat(string fPath, string[] content)
+        {
+            File.WriteAllLines(fPath, content);
+        }
     }
 }
 
@@ -53,8 +58,9 @@ namespace XuLyChuoi
         static List<int> theIndexOfTheSpace = new List<int>();
 
         //Trả về chuỗi gen được biến đổi theo gem mã hóa
-        static public string ChuyenHoaGen(string Gen)
+        static public string ChuyenHoa(string Gen)
         {
+            
             int IndexOfTheSpace = -1;
             
             //Tìm vị trí các dấu gạch chân xong bỏ vô list
@@ -80,6 +86,33 @@ namespace XuLyChuoi
             }
 
             return InputToCut.ToString();
+        }
+
+        public static string MaHoaGen(string Gen)
+        {
+            int index = Gen.IndexOf("zz");
+
+            //có gen thông tin zz
+            if(index != -1 && Gen[index - 1] == '_')
+            {
+                List<string> ListGen = new List<string>();
+                ListGen[0] = ChuyenHoa(Gen);
+
+                int i = 1;
+                while(true)
+                {
+                    ListGen[i] = ChuyenHoa(ListGen[i - 1]);
+
+                    if (ListGen[i] == ListGen[i - 1])
+                        return ListGen[i];
+                    else if (i > 2 && ListGen[i] == ListGen[i - 2])
+                        return null;
+                    i++;
+                }
+            }
+
+            //Không có gen thông tin zz
+            return ChuyenHoa(Gen);
         }
 
         //Trả về list các đoạn gen đã cắt và lượt phần đầu
@@ -122,7 +155,7 @@ namespace XuLyChuoi
                     if (Pokemon == Gen[i])
                         continue;
                     else
-                        return "";
+                        return null;
                 }
             }
 
@@ -154,22 +187,36 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             List<string> TenPokemon = new List<string>{"Articuno","Cobalion","Dialga","Entei","Giratina","Groudon","HoOh","Keldeo","Kyogre","Landorus","Lugia","Moltres","Palkia","Raikou","Rayquaza","Suicune","Terrakion","Thundurus","Tornadus","Virizion","Xerneas","Yveltal","Zapdos" };
+            
+            //-------------------------------------------------------Input
             string Input = XulyFile.Nhapxuat.Nhap("test.txt");
 
-            //string GenMaHoa = XuLyChuoi.BienDoiChuoiGen.ChuyenHoaGen(Input);
+            //----------------------------------------------------------Ma hoa
+            string GenMaHoa = XuLyChuoi.BienDoiChuoiGen.MaHoaGen(Input);
+            string[] output = {"NULL", "NULL"};
 
-            List<string> CutDone = XuLyChuoi.BienDoiChuoiGen.CatGen(XuLyChuoi.BienDoiChuoiGen.ChuyenHoaGen(Input));
-            string poke = XuLyChuoi.BienDoiChuoiGen.findPokemon(CutDone, TenPokemon);
-            string Skill = XuLyChuoi.BienDoiChuoiGen.createSkill(CutDone, poke);
-
-            //Kiểm tra chuỗi đã cắt
-            for (int i = 0; i < CutDone.Count; i++ )
+            if(GenMaHoa != null)
             {
-                Console.WriteLine(CutDone[i]);
-            }
-            Console.WriteLine(Skill);
+                output[0] = GenMaHoa;
+                List<string> CutDone = XuLyChuoi.BienDoiChuoiGen.CatGen(GenMaHoa);
 
-            Console.ReadKey();
+                string poke = XuLyChuoi.BienDoiChuoiGen.findPokemon(CutDone, TenPokemon);
+
+                if (poke != null)
+                {
+                    string Skill = XuLyChuoi.BienDoiChuoiGen.createSkill(CutDone, poke);
+
+                    if (Skill != null) output[1] = Skill;
+
+                    Console.WriteLine(GenMaHoa);
+                    Console.WriteLine(Skill);
+                }
+            }
+
+            //------------------------------------------Output
+            XulyFile.Nhapxuat.Xuat("Output.txt", output);
+
+            
         }
     }
 }
