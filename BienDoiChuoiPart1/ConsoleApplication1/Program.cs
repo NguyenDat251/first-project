@@ -54,12 +54,11 @@ namespace XuLyChuoi
 {
     public class BienDoiChuoiGen
     {
-        //list chứa vị trí các dấu gạch chân, mặc định dấu đầu tiên ở vị trí -1
-        static List<int> theIndexOfTheSpace = new List<int>();
-
         //Trả về chuỗi gen được biến đổi theo gem mã hóa
         static public string ChuyenHoa(string Gen)
         {
+            //list chứa vị trí các dấu gạch chân, mặc định dấu đầu tiên ở vị trí -1
+            List<int> theIndexOfTheSpace = new List<int>();
             
             int IndexOfTheSpace = -1;
             
@@ -88,14 +87,14 @@ namespace XuLyChuoi
             return InputToCut.ToString();
         }
 
-        public static string MaHoaGen(string Gen)
+        static public  string MaHoaGen(string Gen)
         {
             int index = Gen.IndexOf("zz");
 
             //có gen thông tin zz
             if(index != -1 && Gen[index - 1] == '_')
             {
-                List<string> ListGen = new List<string>();
+                string[] ListGen = new string[3];
                 ListGen[0] = ChuyenHoa(Gen);
 
                 int i = 1;
@@ -105,7 +104,7 @@ namespace XuLyChuoi
 
                     if (ListGen[i] == ListGen[i - 1])
                         return ListGen[i];
-                    else if (i > 2 && ListGen[i] == ListGen[i - 2])
+                    else if (ListGen[i] == Gen)
                         return null;
                     i++;
                 }
@@ -118,9 +117,6 @@ namespace XuLyChuoi
         //Trả về list các đoạn gen đã cắt và lượt phần đầu
         static public List<string> CatGen(string Gen)
         {
-            //for (int i = 0; i < theIndexOfTheSpace.Count; i++)
-            //    Gen.Remove(theIndexOfTheSpace[i] + 1, 2);
-
             string[] CutDone = Gen.Split('_');
 
             for (int i = 0; i < CutDone.Length ; i++)
@@ -207,9 +203,6 @@ namespace ConsoleApplication1
                     string Skill = XuLyChuoi.BienDoiChuoiGen.createSkill(CutDone, poke);
 
                     if (Skill != null) output[1] = Skill;
-
-                    Console.WriteLine(GenMaHoa);
-                    Console.WriteLine(Skill);
                 }
             }
 
